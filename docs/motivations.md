@@ -163,9 +163,9 @@ port 7946 is the serf membership listening port
 1.4 Start multiple dnets on multiple hosts
 ------------------------------------------
 
- To test libnetwork overlay
+To test libnetwork overlay
 
-   Create an overlay network
+Create an overlay network
 
     # ./bin/dnet -H tcp://127.0.0.1:41000 network create -d overlay multihost
     # ./bin/dnet -H tcp://127.0.0.1:41000 network ls
@@ -175,22 +175,24 @@ port 7946 is the serf membership listening port
     # ./bin/dnet -H tcp://127.0.0.1:41000 container create container_0
     # ./bin/dnet -H tcp://127.0.0.1:41001 container create container_1
 
-   Create endpoint/service
+Create endpoint/service
 
     # ./bin/dnet -H tcp://127.0.0.1:41000 service publish container_0.multihost
     # ./bin/dnet -H tcp://127.0.0.1:41001 service publish container_1.multihost
 
-  Attach service/endpint to the container
+Attach service/endpint to the container
 
-      # ./bin/dnet -H tcp://127.0.0.1:41000 service attach container_0 container_0.multihost
-      # ./bin/dnet -H tcp://127.0.0.1:41001 service attach container_1 container_1.multihost
+        # ./bin/dnet -H tcp://127.0.0.1:41000 service attach container_0 container_0.multihost
+        # ./bin/dnet -H tcp://127.0.0.1:41001 service attach container_1 container_1.multihost
 
-    Find the sandbox ID on dnet-1 by
-    # ./bin/dnet -H tcp://127.0.0.1:41000 service ls
-SERVICE ID          NAME                  NETWORK             CONTAINER           **SANDBOX**
-1ee4cd3181d8        container_1           multihost                               
-692d3ab5d660        container_0           multihost           container_0         ee8de392bc41
-d4cca2196e93        gateway_container_0   docker_gwbridge     container_0         ee8de392bc41
+      Find the sandbox ID on dnet-1 by
+      # ./bin/dnet -H tcp://127.0.0.1:41000 service ls
+  ```
+  SERVICE ID          NAME                  NETWORK             CONTAINER           **SANDBOX**
+  1ee4cd3181d8        container_1           multihost                               
+  692d3ab5d660        container_0           multihost           container_0         ee8de392bc41
+  d4cca2196e93        gateway_container_0   docker_gwbridge     container_0         ee8de392bc41
+  ```
 
     The outlist the service(aka., endpoint) and network name because they have global scope,
     while only container_0 with its sandbox is displayed. This is becuse sandbox has local scope.
