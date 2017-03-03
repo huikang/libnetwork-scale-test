@@ -1,0 +1,12 @@
+title = "LibNetwork Configuration file"
+
+[daemon]
+  debug = true
+[cluster]
+  discovery = "consul://172.17.0.1:8500/custom_prefix"
+  Heartbeat = 20
+[scopes]
+  [scopes.global]
+    [scopes.global.client]
+      provider = "consul"
+      address = "172.17.0.1:8500/custom_prefix"
