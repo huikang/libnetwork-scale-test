@@ -66,7 +66,7 @@ The `dnet` executable is ./bin/dnet. To use the consul kv store, `dnet` needs a 
 
 ### Start two dnet containers
 
-To form a libnetwork cluster like docker swarm, we need to create multiple libnetwork container on the same host, e.g., 
+To form a libnetwork cluster like docker swarm, we need to create multiple libnetwork container on the same host, e.g.,
 
     # docker run -d --hostname=dnet-1-multi-consul --name=dnet-1-multi_consul \
 	     --privileged -p 41000:2385 -e _OVERLAY_HOST_MODE \
@@ -251,3 +251,5 @@ First, find out the netns created for the overlay network named "multihost".
     02:42:0a:00:03:03 dst 172.17.0.4 self permanent
 
    The full architecture is illustrated in Figure xxx.
+
+![](/docs/netns-single-host.png?raw=true)
