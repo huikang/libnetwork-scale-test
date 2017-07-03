@@ -33,13 +33,12 @@ Start consul container
            progrium/consul \
            -server -bootstrap
 
-   or use a newer version of consul (-- WIP --)
+   or use a newer version of consul (Recommended)
 
     docker run -d  \
        --name=consul \
        -p 8500:8500 -p 8300-8302:8300-8302/tcp -p 8300-8302:8300-8302/udp \
-       -h consul \
-       consul agent -server -bootstrap
+       -h consul consul:0.8.5
 
 Start dnet in container
 ---------------------
@@ -51,18 +50,20 @@ Checkout the libnetwork repository and build the `dnet` executable
 
 The `dnet` executable is ./bin/dnet. To use the consul kv store, `dnet` needs a configurable file, e.g., `libnetwork-dnet-consul.toml`. The content of the file looks llike
 
-    title = "LibNetwork Configuration file"
+```toml
+title = "LibNetwork Configuration file"
 
-    [daemon]
-      debug = true
-    [cluster]
-      discovery = "consul://172.17.0.1:8500/custom_prefix"
-      Heartbeat = 10
-    [scopes]
-      [scopes.global]
-        [scopes.global.client]
-          provider = "consul"
-          address = "172.17.0.1:8500/custom_prefix"
+[daemon]
+    debug = true
+[cluster]
+    discovery = "consul://172.17.0.1:8500/custom_prefix"
+    Heartbeat = 10
+[scopes]
+    [scopes.global]
+    [scopes.global.client]
+        provider = "consul"
+        address = "172.17.0.1:8500/custom_prefix"
+```
 
 ### Start two dnet containers
 
@@ -104,7 +105,7 @@ Create a test network mh1 from dnet-1 container. For now, you'd better use the t
     ./bin/dnet -H tcp://127.0.0.1:41000 network create -d test mh1
     ./bin/dnet -H tcp://127.0.0.1:41001 network ls
 
-The above commands show that the network created in one dnet process will be propogated to the libnetwork cluster.
+The above commands show that the network created in one dnet process will be propagated to the libnetwork cluster.
 
 To examine the global datastore, download cosul binary on another machine
 
