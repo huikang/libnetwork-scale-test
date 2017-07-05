@@ -1,0 +1,12 @@
+title = "LibNetwork Configuration file"
+
+[daemon]
+    debug = true
+[cluster]
+    discovery = "{{ kv_provider }}://{{ hostvars[groups['kv_host'][0]]['ansible_eth0']['ipv4']['address'] }}:{{ kv_host_listen_port }}/custom_prefix"
+    Heartbeat = 10
+[scopes]
+    [scopes.global]
+    [scopes.global.client]
+        provider = "{{ kv_provider }}"
+        address = "{{ hostvars[groups['kv_host'][0]]['ansible_eth0']['ipv4']['address'] }}:{{ kv_host_listen_port }}/custom_prefix"

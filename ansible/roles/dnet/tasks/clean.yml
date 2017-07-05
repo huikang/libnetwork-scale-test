@@ -1,0 +1,12 @@
+---
+- name: delete dnet agents
+  docker:
+    name: "dnet-{{ item }}"
+    image: "{{ dnet_image_full }}"
+    pull: "{{ image_pull_policy }}"
+    privileged: yes
+    detach: True
+    state: absent
+  with_sequence: start=1 end={{ number_dnet_agents }}
+  when:
+    - inventory_hostname in groups['emulation-hosts']

@@ -1,0 +1,5 @@
+---
+- name: Checking available KV store nodes in inventory
+  fail:
+    msg: "At least 1 KV node required in inventory"
+  when: groups['kv_host'] | length < 1

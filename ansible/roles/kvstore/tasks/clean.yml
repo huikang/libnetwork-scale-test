@@ -1,0 +1,9 @@
+---
+- name: delete consul agents
+  docker:
+    name: "consul"
+    image: "{{ consul_image_full }}"
+    pull: "{{ image_pull_policy }}"
+    privileged: no
+    detach: True
+    state: absent

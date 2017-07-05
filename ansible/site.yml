@@ -1,0 +1,10 @@
+---
+- hosts:
+    - kv_host
+  roles:
+    - kvstore
+
+- hosts:
+    - emulation-hosts
+  roles:
+    - dnet
