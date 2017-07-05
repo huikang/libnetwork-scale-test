@@ -1,0 +1,22 @@
+---
+node_config_directory: "/etc/libnetwork-scale-test"
+
+###################
+# Docker options
+###################
+dnet_image: "huikang/dnet-image"
+
+# Valid options are [ missing, always ]
+image_pull_policy: "always"
+
+###################
+# Emulation options
+###################
+
+# Total number of emulated dnet agents
+number_dnet_agents: 2
+
+kv_provider: "consul"
+kv_host_listen_port: "8500"
+
+consul_image: "consul:0.8.5"
