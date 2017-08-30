@@ -4,10 +4,10 @@ node_config_directory: "/etc/libnetwork-scale-test"
 ###################
 # Docker options
 ###################
-dnet_image: "huikang/dnet-image"
+dnet_image: "huikang/libnetwork-scale-test"
 
-# Valid options are [ missing, always ]
-image_pull_policy: "always"
+# Valid options are [ false, true ]
+image_pull_policy: "true"
 
 ###################
 # Emulation options

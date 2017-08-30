@@ -1,5 +1,6 @@
 .PHONY: all
 build_image=dnet-image
+repo=huikang
 dnet_container=dnet
 
 all: images
@@ -19,7 +20,7 @@ dnet-run:
 
 push-img:
 	@echo "+ $@"
-	docker tag ${build_image} huikang/${build_image}
+	docker tag ${build_image} ${repo}/${build_image}
 	docker push huikang/${build_image}
 
 clean:

@@ -1,13 +1,15 @@
 ---
 - name: start dnet agents
-  docker:
+  docker_container:
     name: "dnet-{{ item }}"
     image: "{{ dnet_image_full }}"
     pull: "{{ image_pull_policy }}"
     privileged: yes
     detach: True
     state: started
-    publish_all_ports: yes
+    published_ports:
+        - "2385"
+        - "7496"
     volumes:
         - "{{ node_config_directory }}/dnet-{{ item }}:/etc/dnet/:ro"
     command: "dnet -d -D -c /etc/dnet/dnet-libnetwork.toml"
