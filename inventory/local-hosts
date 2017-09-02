@@ -1,0 +1,5 @@
+[kv_host]
+localhost
+
+[emulation-hosts]
+localhost     provider_ip=127.0.0.1

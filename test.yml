@@ -1,0 +1,7 @@
+---
+- hosts: kv_host
+  connection: local
+  become: true
+  roles:
+    - {role: ../roles/kvstore}
+    - {role: ../roles/dnet}

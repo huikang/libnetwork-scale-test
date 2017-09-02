@@ -1,6 +1,6 @@
 ---
 - name: delete dnet agents
-  docker:
+  docker_container:
     name: "dnet-{{ item }}"
     image: "{{ dnet_image_full }}"
     pull: "{{ image_pull_policy }}"

@@ -9,20 +9,20 @@ IP address to each group.
 ### Check emulation environment
 
 ```bash
- ansible-playbook  -i ansible/inventory/libnetwork-hosts ansible/site.yml -e action=check
+ansible-playbook  -i ansible/inventory/libnetwork-hosts ansible/site.yml -e action=check
 ```
 
 
 ### Deploy the emulation dnet agents on the emulation hosts
 
 ```bash
- ansible-playbook  -i ansible/inventory/libnetwork-hosts ansible/site.yml -e action=deploy
+ansible-playbook  -i ansible/inventory/libnetwork-hosts ansible/site.yml -e action=deploy
 ```
 
 ### Clean up environment
 
 ```bash
- ansible-playbook  -i ansible/inventory/libnetwork-hosts ansible/site.yml -e action=clean
+ansible-playbook  -i ansible/inventory/libnetwork-hosts ansible/site.yml -e action=clean
 ```
 
 ### Test

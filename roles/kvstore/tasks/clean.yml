@@ -1,6 +1,6 @@
 ---
 - name: delete consul agents
-  docker:
+  docker_container:
     name: "consul"
     image: "{{ consul_image_full }}"
     pull: "{{ image_pull_policy }}"

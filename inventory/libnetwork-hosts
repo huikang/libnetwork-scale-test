@@ -1,0 +1,8 @@
+[kv-store]
+9.59.150.242
+
+[emulation-hosts]
+9.59.150.242     provider_ip=9.59.150.242
+
+[kv_host]
+9.59.150.242

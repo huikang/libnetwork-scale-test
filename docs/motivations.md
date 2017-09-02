@@ -161,6 +161,9 @@ Create an overlay network
 
     ./bin/dnet -H tcp://127.0.0.1:41000 network create -d overlay multihost
     ./bin/dnet -H tcp://127.0.0.1:41000 network ls
+    ./bin/dnet -H tcp://127.0.0.1:41001 network ls
+
+Since overlay network is a global resource, the network is visiable on all the dnet agents.
 
 Create container/sandbox on two hosts
 
@@ -236,7 +239,7 @@ First, find out the netns created for the overlay network named "multihost".
 
     # ls /var/run/docker/netns/
 
-  The netns typicall start with 1-XYZ. For example, here the netns
+  The netns typically start with 1-XYZ. For example, here the netns
 
     is /var/run/docker/netns/1-ae0e5b2b78
 

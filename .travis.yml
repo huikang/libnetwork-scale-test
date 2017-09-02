@@ -1,0 +1,12 @@
+dist: trusty
+sudo: required
+services:
+- docker
+
+before_install:
+  - sudo apt-get update -qq
+
+install:
+  - sudo pip install ansible docker-py
+
+script: make && ./run-integration-test.sh
