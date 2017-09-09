@@ -1,0 +1,17 @@
+---
+- name: Ensuring config directories exist on swarm emulation hosts
+  file:
+    path: "{{ node_config_directory }}/swarm-{{ item }}"
+    state: "directory"
+    recurse: yes
+  with_sequence: start=1 end={{ number_swarm_agents }}
+  when:
+    - inventory_hostname in groups['emulation-hosts']
+
+#- name: Copying over dnet toml files
+#  template:
+#    src: "dnet-libnetwork.toml.j2"
+#    dest: "{{ node_config_directory }}/dnet-{{ item }}/dnet-libnetwork.toml"
+#  with_sequence: start=1 end={{ number_dnet_agents }}
+#  when:
+#    - inventory_hostname in groups['emulation-hosts']

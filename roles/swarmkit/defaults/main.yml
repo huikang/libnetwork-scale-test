@@ -5,6 +5,6 @@ project_name: "libnetwork-scale-test"
 # Docker
 #######################
 
-dnet_image_full: "{{ dnet_image }}"
+swarm_image_full: "{{ swarm_image }}"
 
-number_dnet_agents: "{{ number_emulated_agents }}"
+number_swarm_agents: "{{ number_emulated_agents }}"

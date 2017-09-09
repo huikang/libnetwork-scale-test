@@ -2,9 +2,20 @@
 - hosts:
     - kv_host
   roles:
-    - kvstore
+    - { role: kvstore,
+        tags: kvstore,
+        when: libnetwork_install_type == "dnet" }
 
 - hosts:
     - emulation-hosts
   roles:
-    - dnet
+    - { role: dnet,
+        tags: dnet,
+        when: libnetwork_install_type == "dnet" }
+
+- hosts:
+    - emulation-hosts
+  roles:
+    - { role: swarmkit,
+        tags: swarmkit,
+        when: libnetwork_install_type == "swarmkit" }
