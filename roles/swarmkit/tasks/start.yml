@@ -1,0 +1,77 @@
+---
+- name: start swarmkit manager node
+  docker_container:
+    name: "swarm-manager"
+    image: "{{ swarm_image_full }}"
+    pull: "{{ image_pull_policy }}"
+    privileged: yes
+    detach: True
+    state: started
+    volumes:
+        - "{{ node_config_directory }}/swarm-{{ item }}:/etc/swarm/:ro"
+  with_sequence: start=1 end=1
+  register: deployed
+  when:
+    - inventory_hostname in groups['emulation-hosts']
+
+- name: Wait until the manager started
+  shell: docker logs swarm-manager 2>&1
+  register: result
+  until: result.stdout.find("API listen on") != -1
+  retries: 5
+  delay: 5
+
+- name: Init swarm mode on the manager node
+  shell: docker exec swarm-manager docker swarm init
+  run_once: True
+  when:
+    - inventory_hostname in groups['emulation-hosts']
+    - deployed.changed
+
+- name: Get swarm join-token for workers
+  shell: docker exec swarm-manager docker swarm join-token worker --quiet  2>&1
+  register: result
+  run_once: True
+  when:
+    - inventory_hostname in groups['emulation-hosts']
+
+- set_fact:
+    join_token_worker: "{{ result.stdout }}"
+
+- debug:
+    msg: "join token {{ join_token_worker }}"
+
+- name: Get swarm join-token for workers
+  shell: docker exec swarm-manager docker swarm join-token worker  | grep token | cut -d' ' -f 10
+  register: result
+  run_once: True
+  when:
+    - inventory_hostname in groups['emulation-hosts']
+
+- set_fact:
+    join_ip: "{{ result.stdout }}"
+
+- debug:
+    msg: "join ip {{ join_ip }}"
+
+- name: start swarmkit workers
+  docker_container:
+    name: "swarm-worker-{{ item }}"
+    image: "{{ swarm_image_full }}"
+    pull: "{{ image_pull_policy }}"
+    privileged: yes
+    detach: True
+    state: started
+    volumes:
+        - "{{ node_config_directory }}/swarm-{{ item }}:/etc/swarm/:ro"
+  with_sequence: start=2 end={{ number_swarm_agents }}
+  when:
+    - inventory_hostname in groups['emulation-hosts']
+
+- name: Join workers to the swarm
+  shell: docker exec swarm-worker-{{ item }} docker swarm join --token {{ join_token_worker }} {{ join_ip }}
+  run_once: True
+  with_sequence: start=2 end={{ number_swarm_agents }}
+  when:
+    - inventory_hostname in groups['emulation-hosts']
+    - deployed.changed

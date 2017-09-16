@@ -1,0 +1,24 @@
+---
+- name: delete swarm manager node
+  docker_container:
+    name: "swarm-manager"
+    image: "{{ swarm_image_full }}"
+    pull: "{{ image_pull_policy }}"
+    privileged: yes
+    detach: True
+    state: absent
+  with_sequence: start=1 end=1
+  when:
+    - inventory_hostname in groups['emulation-hosts']
+
+- name: delete swarm workers
+  docker_container:
+    name: "swarm-worker-{{ item }}"
+    image: "{{ swarm_image_full }}"
+    pull: "{{ image_pull_policy }}"
+    privileged: yes
+    detach: True
+    state: absent
+  with_sequence: start=2 end={{ number_swarm_agents }}
+  when:
+    - inventory_hostname in groups['emulation-hosts']

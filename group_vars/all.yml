@@ -1,10 +1,14 @@
 ---
 node_config_directory: "/etc/libnetwork-scale-test"
 
+# Valid options are [ dnet, swarmkit ]
+libnetwork_install_type: "dnet"
+
 ###################
 # Docker options
 ###################
 dnet_image: "huikang/libnetwork-scale-test"
+swarm_image: "docker:stable-dind"
 
 # Valid options are [ false, true ]
 image_pull_policy: "true"
@@ -14,7 +18,7 @@ image_pull_policy: "true"
 ###################
 
 # Total number of emulated dnet agents
-number_dnet_agents: 2
+number_emulated_agents: 2
 
 kv_provider: "consul"
 kv_host_listen_port: "8500"
