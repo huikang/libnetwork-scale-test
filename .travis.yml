@@ -9,4 +9,9 @@ before_install:
 install:
   - sudo pip install ansible docker-py
 
-script: make && ./run-integration-test.sh
+env:
+  matrix:
+    - EMULATION_TYPE=dnet
+    - EMULATION_TYPE=swarmkit
+
+script: ./run-integration-test.sh
