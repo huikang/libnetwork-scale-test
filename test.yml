@@ -3,5 +3,14 @@
   connection: local
   become: true
   roles:
-    - {role: ../roles/kvstore}
-    - {role: ../roles/dnet}
+    - { role: ../roles/kvstore,
+        when: libnetwork_install_type == "dnet" }
+    - { role: ../roles/dnet,
+        when: libnetwork_install_type == "dnet"}
+
+- hosts: emulation-hosts
+  connection: local
+  become: true
+  roles:
+    - { role: ../roles/swarmkit,
+        when: libnetwork_install_type == "swarmkit"}
